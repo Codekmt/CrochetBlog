@@ -7,7 +7,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="bg-gray-800 p-4">
+        <nav className="bg-gray-200 p-4">
             <div className="flex justify-between items-center">
                 <div className="text-black text-2xl">Logo</div>
 
@@ -40,7 +40,7 @@ const Navbar = () => {
 
                 {/* Mobile Navigation */}
                 {isOpen && (
-                    <div className="md:hidden bg-gray-900 p-4">
+                    <div className="flex flex-col md:hidden bg-white p-4">
                         <a href="/" className="text-black  text-lg hover:underline">
                         All Posts
                         </a>
