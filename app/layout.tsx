@@ -1,4 +1,7 @@
+// app/layout.tsx
+
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -11,15 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-        <html lang="en">
-        <body
-          className={`flex flex-col min-h-screen bg-customBeige`}>
+      <html lang="en">
+        <body className="flex flex-col min-h-screen bg-customBeige">
           <Navbar />
-          <main className="flex-grow">
-  
-          {children}
-          </main>
+          <main className="flex-grow">{children}</main>
+          <Footer />
         </body>
-      </html>
+    </html>
   );
 }
