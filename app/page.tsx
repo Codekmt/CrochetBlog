@@ -1,16 +1,10 @@
-import Hero from "@/components/hero";
-import ConnectSupabaseSteps from "@/components/tutorial/connect-supabase-steps";
-import SignUpUserSteps from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-
-export default async function Index() {
+export default function HomePage() {
   return (
-    <>
-      <Hero />
-      <main className="flex-1 flex flex-col gap-6 px-4">
-        <h2 className="font-medium text-xl mb-4">Next steps</h2>
-        {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-      </main>
-    </>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 className="text-2xl font-bold">Welcome to Hooked Crochet Blog!</h1>
+      <p className="mt-4 text-gray-600">
+        Explore tutorials, patterns, and tips for crochet enthusiasts.
+      </p>
+    </div>
   );
 }

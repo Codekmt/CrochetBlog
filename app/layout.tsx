@@ -1,22 +1,4 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { GeistSans } from "geist/font/sans";
-import { ThemeProvider } from "next-themes";
-import Link from "next/link";
-import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
-export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
-};
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 export default function RootLayout({
   children,
@@ -24,48 +6,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>Next.js Supabase Starter</Link>
-                    <div className="flex items-center gap-2">
-                      <DeployButton />
-                    </div>
-                  </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
-                </div>
-              </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
+    <html lang="en">
+      <body className="bg-gray-100 text-gray-900">
+        <header className="w-full bg-white shadow">
+          <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              {/* Left section for navigation links from Eefje */}
+              <div className="flex items-center">
+                <a href="/" className="text-lg font-semibold">
+                  Navigation links from Eefje
+                </a>
               </div>
 
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                  Powered by{" "}
-                  <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Supabase
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
+              {/* Right section for the profile dropdown */}
+              <div className="flex items-center">
+                <ProfileDropdown />
+              </div>
             </div>
-          </main>
-        </ThemeProvider>
+          </nav>
+        </header>
+
+      
+        <main className="py-8">{children}</main>
+
+     
+        <footer className="text-center text-sm py-4">
+          <p>© 2024 Hooked Crochet Blog</p>
+        </footer>
       </body>
     </html>
   );
