@@ -1,36 +1,63 @@
+"use client";
+
 import { useState } from "react";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav>
-            <div>
-                <div>Logo</div>
+        <nav className="bg-gray-800 p-4">
+            <div className="flex justify-between items-center">
+                <div className="text-black text-2xl">Logo</div>
+
+                {/*desktop Navigation*/}
                 <div className="hidden md:flex space-x-4">
-                    {" "}
-                    <Link href="/" className="text-white  text-lg hover:underline">
-                    All Posts
-                    </Link>
-                    <Link href="/CreatePost" className="text-white  text-lg hover:underline">
-                    Create Post
-                    </Link>
-                    <Link href="/Patterns" className="text-white  text-lg hover:underline">
-                    Patterns
-                    </Link>
-                    <Link href="/Blog" className="text-white  text-lg hover:underline">
-                    Blog
-                    </Link>
-                    <Link href="/Help" className="text-white  text-lg hover:underline">
-                    Help
-                    </Link>
+                    <a href="/" className="text-black  text-lg hover:underline">
+                        All Posts
+                    </a>
+                    <a href="/CreatePost" className="text-black  text-lg hover:underline">
+                        Create Post
+                    </a>
+                    <a href="/Patterns" className="text-black  text-lg hover:underline">
+                        Patterns
+                    </a>
+                    <a href="/Blog" className="text-black  text-lg hover:underline">
+                        Blog
+                    </a>
+                    <a href="/Help" className="text-black  text-lg hover:underline">
+                        Help
+                    </a>
                 </div>
-            </div>
-            <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white">
+
+                {/* Mobile Menu Button */}
+                <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden text-white">
                 <Menu className="h-5 w-5" />
-            </button>
+                </button>
+            </div>
+
+                {/* Mobile Navigation */}
+                {isOpen && (
+                    <div className="md:hidden bg-gray-900 p-4">
+                        <a href="/" className="text-black  text-lg hover:underline">
+                        All Posts
+                        </a>
+                        <a href="/CreatePost" className="text-black  text-lg hover:underline">
+                        Create Post
+                        </a>
+                        <a href="/Patterns" className="text-black  text-lg hover:underline">
+                        Patterns
+                        </a>
+                        <a href="/Blog" className="text-black  text-lg hover:underline">
+                        Blog
+                        </a>
+                        <a href="/Help" className="text-black  text-lg hover:underline">
+                        Help
+                        </a>
+                    </div>
+                )}
         </nav>
     )
 }
