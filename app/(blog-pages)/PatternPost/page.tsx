@@ -1,3 +1,4 @@
+//app/(blog-pages)/PatternPost/page.tsx
 import PatternPost from "@/components/PatternPost";
 
 const PatternPostPage = () => {
