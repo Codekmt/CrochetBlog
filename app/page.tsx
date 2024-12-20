@@ -9,12 +9,7 @@ export default function Index() {
           Explore tutorials, patterns, and tips for crochet enthusiasts.
         </p>
       </section>
-
-      <section className="mt-16 flex justify-center">
-        <div className="bg-white border border-gray-300 shadow-md rounded-lg p-6 w-full max-w-md h-48 flex flex-col justify-center">
-          <PostTypeSelector />
-        </div>
-      </section>
+      
     </div>
   );
 }
