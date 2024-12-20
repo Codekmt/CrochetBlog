@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import ProfileDropDown from "@/components/ProfileDropDown"; 
+import ProfileDropDown from "@/components/ProfileDropdown"; 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
