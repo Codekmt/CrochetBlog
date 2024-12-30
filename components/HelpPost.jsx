@@ -49,7 +49,7 @@ export default function HelpPost() {
     };
 
     return (
-        <div className="w-[500px]">
+        <div className="w-[400px] sm:w-[500px]">
             <div className="flex items-center gap-[10px]">
                 <div className="bg-gray-200 w-[50px] h-[50px] rounded-full"></div>
                 <p>Username123</p>
@@ -62,7 +62,7 @@ export default function HelpPost() {
                     <button className="text-gray-500 mb-[10px]" onClick={clickevent}>{viewText}</button>
                     )}
             </div>
-            <div className="grid ml-[60px] w-[400px] h-[400px] grid-cols-2 gap-[5px]">
+            <div className="grid ml-[60px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] grid-cols-2 gap-[5px]">
                 <div className="bg-gray-200 w-full h-full"></div>
                 <div className="bg-gray-200 w-full h-full"></div>
                 <div className="bg-gray-200 w-full h-full"></div>
