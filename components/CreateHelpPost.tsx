@@ -40,11 +40,11 @@ const CreateHelpPost = () => {
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-gray-700 font-medium">
+            <label htmlFor="short-description" className="block text-gray-700 font-medium">
               Short Description
             </label>
             <textarea
-              id="description"
+              id="short-description"
               rows={2}
               placeholder="Describe briefly what the issue is"
               className="mt-1 block w-full rounded-md shadow-sm"
@@ -52,11 +52,11 @@ const CreateHelpPost = () => {
           </div>
 
           <div>
-            <label htmlFor="instructions" className="block text-gray-700 font-medium">
+            <label htmlFor="explanation" className="block text-gray-700 font-medium">
               Extended explanantion
             </label>
             <textarea
-              id="instructions"
+              id="explanation"
               rows={4}
               placeholder="Explain with details what you need help with."
               className="mt-1 block w-full rounded-md shadow-sm"
@@ -64,11 +64,11 @@ const CreateHelpPost = () => {
           </div>
 
           <div>
-            <label htmlFor="instruction-pictures" className="block text-gray-700 font-medium">
+            <label htmlFor="help-needed-pictures" className="block text-gray-700 font-medium">
               Upload Instruction Pictures
             </label>
             <input
-              id="helpneeded-pictures"
+              id="help-needed-pictures"
               type="file"
               accept="image/*"
               multiple
