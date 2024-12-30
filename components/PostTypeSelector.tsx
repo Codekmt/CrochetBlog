@@ -14,7 +14,7 @@ const PostTypeSelector = () => {
         <Link href="/HelpPost" passHref>
           <button className="bg-green-500 text-white px-4 py-2 rounded">Help</button>
         </Link>
-        <Link href="/PatternPost" passHref>
+        <Link href="/CreatePatternPost" passHref>
           <button className="bg-purple-500 text-white px-4 py-2 rounded">Pattern</button>
         </Link>
         </div>

@@ -1,4 +1,4 @@
-import PatternPost from "@/components/CreatePatternPost"
+import PatternPost from "@/components/PatternPost"
 
 export default function Patterns() {
     return (

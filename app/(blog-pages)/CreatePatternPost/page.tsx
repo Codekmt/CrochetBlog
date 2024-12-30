@@ -1,10 +1,11 @@
 //app/(blog-pages)/PatternPost/page.tsx
-import PatternPost from "@/components/PatternPost";
+import CreatePatternPost from "@/components/CreatePatternPost";
+
 
 const PatternPostPage = () => {
   return (
     <div>
-      <PatternPost />
+      <CreatePatternPost />
     </div>
   );
 };
