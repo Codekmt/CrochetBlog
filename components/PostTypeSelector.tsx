@@ -8,10 +8,10 @@ const PostTypeSelector = () => {
           What kind of post do you want to create?
         </h1>
         <div className="flex justify-center space-x-4">
-        <Link href="/BlogPost" passHref>
+        <Link href="/CreateBlogPost" passHref>
           <button className="bg-blue-500 text-white px-4 py-2 rounded">Blog</button>
         </Link>
-        <Link href="/HelpPost" passHref>
+        <Link href="/CreateHelpPost" passHref>
           <button className="bg-green-500 text-white px-4 py-2 rounded">Help</button>
         </Link>
         <Link href="/CreatePatternPost" passHref>
