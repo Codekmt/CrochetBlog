@@ -38,12 +38,12 @@ export default function SocialBar() {
 
     return (
         <>
-        <div className="w-[400px]">
+        <div className="flex w-[400px] ml-[60px] gap-[10px]">
             <div>
-                <button className="bg-yellow-200" onClick={likeClick} type="button">{likeAmount} Likes</button>
+                <button onClick={likeClick} type="button">{likeAmount} Likes</button>
             </div>
             <div>
-                <button className="bg-red-200" onClick={commentClick} type="button">{commentsAmount} Comments</button>
+                <button onClick={commentClick} type="button">{commentsAmount} Comments</button>
             </div>
         </div>
         <div className={`${commentSectionState} ml-[50px] m-[20px]`}>
