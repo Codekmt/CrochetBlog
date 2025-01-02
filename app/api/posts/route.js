@@ -83,7 +83,7 @@ export async function PATCH(req) {
     const updates = {};
     if (title) updates.title = title;
     if (content) updates.content = content;
-    if (category_id) updates.category_id = category_id;
+    if (category_id) updates.category_i = category_id;
 
     const { data, error } = await supabaseClient
       .schema('blog')
