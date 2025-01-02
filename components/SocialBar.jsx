@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import CommentSection from "./CommentSection";
 
 export default function SocialBar() {
@@ -46,7 +46,7 @@ export default function SocialBar() {
                 <button className="bg-red-200" onClick={commentClick} type="button">{commentsAmount} Comments</button>
             </div>
         </div>
-        <div className={commentSectionState}>
+        <div className={`${commentSectionState} ml-[50px] m-[20px]`}>
             <CommentSection></CommentSection>
         </div>
         </>
