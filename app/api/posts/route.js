@@ -52,8 +52,6 @@ export async function DELETE(req) {
       return new Response(JSON.stringify({ error: "Post ID is required" }), { status: 400 });
     }
 
-    const supabaseClient = supabase();
-
     const { data, error } = await supabaseClient
       .schema('blog')
       .from('post')
@@ -66,6 +64,39 @@ export async function DELETE(req) {
     }
 
     console.log("Post deleted:", data);
+    return new Response(JSON.stringify(data), { status: 200 });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+  }
+}
+
+export async function PATCH(req) {
+  try {
+    const body = await req.json();
+    const { id, title, content, category_id } = body;
+
+    if (!id) {
+      return new Response(JSON.stringify({ error: "Post ID is required" }), { status: 400 });
+    }
+
+    const updates = {};
+    if (title) updates.title = title;
+    if (content) updates.content = content;
+    if (category_id) updates.category_id = category_id;
+
+    const { data, error } = await supabaseClient
+      .schema('blog')
+      .from('post')
+      .update(updates)
+      .eq('id', id);
+
+    if (error) {
+      console.error("Supabase error:", error.message);
+      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    }
+
+    console.log("Post updated:", data);
     return new Response(JSON.stringify(data), { status: 200 });
   } catch (err) {
     console.error("Unexpected error:", err);
