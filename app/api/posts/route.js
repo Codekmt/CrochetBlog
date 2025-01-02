@@ -1,9 +1,11 @@
 import { supabase } from '../../../utils/supabase/client';
 
+const supabaseClient = supabase();
+
 export async function GET() {
-  const supabaseClient = supabase();
-  
+
   const { data: posts, error } = await supabaseClient
+    .schema('blog')
     .from('post')
     .select('*');
 
@@ -14,20 +16,59 @@ export async function GET() {
   return new Response(JSON.stringify(posts), { status: 200 });
 }
 
-// export async function POST(req) {
-//   const supabaseClient = supabase();
-  
-//   const { title, content, category_id } = await req.json();  
+export async function POST(req) {
 
-//   const { data: newPost, error } = await supabaseClient
-//     .from('post')
-//     .insert({ title, content, category_id })
-//     .select()
-//     .single();
+  try {
+    const body = await req.json();
 
-//   if (error) {
-//     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-//   }
+    const { title, content, category_id, author_id } = body;
 
-//   return new Response(JSON.stringify(newPost), { status: 201 });
-// }
+    const { data: newPost, error } = await supabaseClient
+      .schema('blog')
+      .from('post')
+      .insert({ title, content, category_id, author_id })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Supabase error:", error.message);
+      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    }
+
+    console.log("New post created:", newPost);
+    return new Response(JSON.stringify(newPost), { status: 201 });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+  }
+}
+
+export async function DELETE(req) {
+  try {
+    const body = await req.json();
+    const { id } = body;
+
+    if (!id) {
+      return new Response(JSON.stringify({ error: "Post ID is required" }), { status: 400 });
+    }
+
+    const supabaseClient = supabase();
+
+    const { data, error } = await supabaseClient
+      .schema('blog')
+      .from('post')
+      .delete()
+      .match({ id });
+
+    if (error) {
+      console.error("Supabase error:", error.message);
+      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    }
+
+    console.log("Post deleted:", data);
+    return new Response(JSON.stringify(data), { status: 200 });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+  }
+}
