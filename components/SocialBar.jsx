@@ -25,9 +25,14 @@ export default function SocialBar() {
     //TODO: comments amount should be the amount of comments saved in the database
     const commentsAmount = 0;
 
+    const [commentSectionState, setcommentSectionState] = useState("hidden");
 
     const commentClick = () => {
-
+        if(commentSectionState == "hidden") {
+            setcommentSectionState("");
+        } else {
+            setcommentSectionState("hidden");
+        }
     }
 
 
@@ -35,13 +40,15 @@ export default function SocialBar() {
         <>
         <div className="w-[400px]">
             <div>
-                <button onClick={likeClick} type="button">{likeAmount} Likes</button>
+                <button className="bg-yellow-200" onClick={likeClick} type="button">{likeAmount} Likes</button>
             </div>
             <div>
-                <button onClick={commentClick} type="button">{commentsAmount} Comments</button>
+                <button className="bg-red-200" onClick={commentClick} type="button">{commentsAmount} Comments</button>
             </div>
         </div>
-        <CommentSection></CommentSection>
+        <div className={commentSectionState}>
+            <CommentSection></CommentSection>
+        </div>
         </>
     )
 }
