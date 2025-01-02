@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import CommentSection from "./CommentSection";
 
 export default function SocialBar() {
     //TODO: change initial likes to the amount of likes saved in the database
@@ -20,6 +21,16 @@ export default function SocialBar() {
         }
     }
 
+
+    //TODO: comments amount should be the amount of comments saved in the database
+    const commentsAmount = 0;
+
+
+    const commentClick = () => {
+
+    }
+
+
     return (
         <>
         <div className="w-[400px]">
@@ -27,9 +38,10 @@ export default function SocialBar() {
                 <button onClick={likeClick} type="button">{likeAmount} Likes</button>
             </div>
             <div>
-                <button onClick={commentClick} type="button">Comments</button>
+                <button onClick={commentClick} type="button">{commentsAmount} Comments</button>
             </div>
         </div>
+        <CommentSection></CommentSection>
         </>
     )
 }
