@@ -22,11 +22,27 @@ const CreatePatternPost = () => {
     }
   };
 
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    instructions: "",
+    coverPicture: "",
+    instructionPictures: "",
+    tag: "",
+  })
+
+  //TODO: handlechange function for every form element (onChange)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Data Submitted:", formData);
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="bg-white border border-gray-300 shadow-lg rounded p-8 w-full max-w-3xl">
         <h1 className="text-2xl font-bold mb-4 text-center">Create a Pattern Post</h1>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
       
           <div>
             <label htmlFor="title" className="block text-gray-700 font-medium">
