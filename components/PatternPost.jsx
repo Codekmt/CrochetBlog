@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import SocialBar from "./SocialBar";
 
 export default function PatternPost() {
 
@@ -19,6 +20,7 @@ export default function PatternPost() {
             <div className="ml-[60px] mt-[10px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px]">
                 <div className="bg-gray-200 w-full h-full"></div>
             </div>
+            <SocialBar></SocialBar>
         </div>
     )
 }

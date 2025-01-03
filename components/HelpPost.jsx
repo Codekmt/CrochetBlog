@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import SocialBar from "./SocialBar";
 
 export default function HelpPost() {
 
@@ -68,6 +69,7 @@ export default function HelpPost() {
                 <div className="bg-gray-200 w-full h-full"></div>
                 <div className="bg-gray-200 w-full h-full"></div>
             </div>
+            <SocialBar></SocialBar>
         </div>
     )
 }
