@@ -2,18 +2,56 @@ import { supabase } from '../../../utils/supabase/client';
 
 const supabaseClient = supabase();
 
-export async function GET() {
+export async function GET(req) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
 
-  const { data: posts, error } = await supabaseClient
-    .schema('blog')
-    .from('post')
-    .select('*');
+    if (id) {
+      const { data: post, error } = await supabaseClient
+        .schema('blog')
+        .from('post')
+        .select(`
+          *,
+          category(*),
+          post_comment(*),
+          tag(*),
+          post_images(*),
+          post_likes(*)          
+          `)
+        .eq('id', id)
+        .single();
 
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      if (error) {
+        console.error('Supabase error:', error.message);
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      }
+
+      return new Response(JSON.stringify(post), { status: 200 });
+    } else {
+      const { data: posts, error } = await supabaseClient
+        .schema('blog')
+        .from('post')
+        .select(`
+          *,
+          category(*),
+          post_comment(*),
+          tag(*),
+          post_images(*),
+          post_likes(*)
+        `);
+
+      if (error) {
+        console.error('Supabase error:', error.message);
+        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      }
+
+      return new Response(JSON.stringify(posts), { status: 200 });
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
   }
-
-  return new Response(JSON.stringify(posts), { status: 200 });
 }
 
 export async function POST(req) {
