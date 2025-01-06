@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import SocialBar from "./SocialBar";
+import SocialBar from "./socialBar";
 
 export default function HelpPost() {
 

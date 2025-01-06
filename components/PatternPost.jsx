@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import SocialBar from "./SocialBar";
+import SocialBar from "./socialBar";
 
 export default function PatternPost() {
 
