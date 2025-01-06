@@ -46,10 +46,16 @@ export default function BlogPost() {
         console.log("view more/less");
     };
 
+    const pictures = ["01.jpg", "02.jpg", "03.jpg", "04.jpg"];
+
     return (
         <div className="w-[400px] sm:w-[500px]">
             <div className="flex items-center gap-[10px]">
-                <div className="bg-gray-200 w-[50px] h-[50px] rounded-full"></div>
+                <div className="bg-gray-200 w-[50px] h-[50px] rounded-full flex items-center">
+                    <span role="img" aria-label="Profile" className="text-2xl ml-[10px]">
+                    👤
+                    </span>
+                </div>
                 <p>Username123</p>
             </div>
             <div className="ml-[60px]">
@@ -60,10 +66,11 @@ export default function BlogPost() {
                     )}
             </div>
             <div className="grid ml-[60px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] grid-cols-2 gap-[5px]">
-                <div className="bg-gray-200 w-full h-full"></div>
-                <div className="bg-gray-200 w-full h-full"></div>
-                <div className="bg-gray-200 w-full h-full"></div>
-                <div className="bg-gray-200 w-full h-full"></div>
+                {pictures.map((picture, index) => (
+                    <div className="relative w-full h-0 pb-[100%]" key={index}>
+                        <img index={index} src={`/${picture}`} className="absolute top-0 left-0 w-full h-full object-cover"></img>
+                    </div>
+                ))}
             </div>
             <SocialBar></SocialBar>
         </div>
