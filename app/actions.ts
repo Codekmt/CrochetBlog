@@ -7,8 +7,6 @@ import { redirect } from "next/navigation";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
-  // const firstName = formData.get("firstName")?.toString();
-  // const lastName = formData.get("lastName")?.toString();
   const password = formData.get("password")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
@@ -24,11 +22,14 @@ export const signUpAction = async (formData: FormData) => {
   const { error } = await supabase.auth.signUp({
     email,
     password,
-    options: 
-    {
+    options: {
+      data: {
+        username: formData.get("nickName")?.toString(),
+      },
       emailRedirectTo: `${origin}/auth/callback`,
     },
   });
+
 
   if (error) {
     console.error(error.code + " " + error.message);
@@ -41,6 +42,28 @@ export const signUpAction = async (formData: FormData) => {
     );
   }
 };
+
+export const addDetailsToProfiles = async (formdata: FormData) => {
+  const email = formdata.get("email") as string;
+  const nickName = formdata.get("nickName") as string;
+  const supabase = await createClient();
+
+  if (!email || !nickName) {
+    return encodedRedirect(
+      "error",
+      "/sign-up",
+      "Email and nickname are required",
+    );
+  }
+
+  const {data, error} = await supabase.from("profiles").insert([{ username: nickName, email: email }]);
+  if (error) {
+    console.error(error);
+    return encodedRedirect("error", "/sign-up", error.message);
+  } else {
+    console.log(data);
+  }
+}
 
 export const signInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;

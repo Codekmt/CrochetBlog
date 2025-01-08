@@ -1,4 +1,4 @@
-import { signUpAction } from "@/app/actions";
+import { addDetailsToProfiles, signUpAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -31,10 +31,8 @@ export default async function Signup(props: {
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
           <Label htmlFor="email">Email</Label>
           <Input name="email" placeholder="you@example.com" required />
-          <Label htmlFor="firstName">First Name</Label>
-          <Input name="firstName" placeholder="Rocky" required/>
-          <Label htmlFor="lastName">Last Name</Label>
-          <Input name="lastName" placeholder="Balboa" required/>
+          <Label htmlFor="nickName">Your nickname</Label>
+          <Input name="nickName" placeholder="RockyBalboa42" required/>
           <Label htmlFor="password">Password</Label>
           <Input
             type="password"

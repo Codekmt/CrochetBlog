@@ -8,12 +8,14 @@ export default async function Page() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  let metadata = user?.user_metadata;
+  console.log(metadata.username);
 
   if (!user) {
     return redirect('/sign-in');
   }
 
-  const { data: userExample, error } = await supabase.from('user').select();
+  const { data: userExample, error } = await supabase.from('profiles').select();
 
   if (error) {
     console.error('Error fetching notes:', error);
@@ -30,8 +32,8 @@ export default async function Page() {
               key={userEx.id}
               className="p-4 border rounded shadow-sm bg-gray-100 dark:bg-gray-800"
             >
-              <h2 className="font-semibold text-lg">{userEx.first_name || 'Untitled Note'}</h2>
-              <p className="text-gray-700 dark:text-gray-300">{userEx.last_name || 'No content available.'}</p>
+              <h2 className="font-semibold text-lg">{userEx.username || 'Untitled Note'}</h2>
+              <p className="text-gray-700 dark:text-gray-300">{userEx.full_name || 'No content available.'}</p>
             </li>
           ))}
         </ul>
