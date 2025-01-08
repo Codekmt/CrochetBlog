@@ -47,6 +47,19 @@ export default function BlogPost() {
     };
 
     const pictures = ["01.jpg", "02.jpg", "03.jpg", "04.jpg"];
+    //const pictures = ["01.jpg", "02.jpg"];
+    //const pictures = ["01.jpg"];
+    const initialPictureState = "grid ml-[60px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] grid-cols-2 gap-[5px]";
+    const [pictureState, setPictureState] = useState(initialPictureState);
+
+    useEffect(() => {
+        if(pictures.length === 1){
+            setPictureState("ml-[60px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] flex items-center justify-center");
+        }else if(pictures.length < 3){
+            setPictureState("grid ml-[60px] w-[350px] h-[175px] sm:w-[400px] sm:h-[200px] grid-cols-2 gap-[5px]");
+        }
+      }, []);
+
 
     return (
         <div className="w-[400px] sm:w-[500px]">
@@ -65,9 +78,9 @@ export default function BlogPost() {
                     <button className="text-gray-500 mb-[10px]" onClick={clickevent}>{viewText}</button>
                     )}
             </div>
-            <div className="grid ml-[60px] w-[350px] h-[350px] sm:w-[400px] sm:h-[400px] grid-cols-2 gap-[5px]">
+            <div className={pictureState}>
                 {pictures.map((picture, index) => (
-                    <div className="relative w-full h-0 pb-[100%]" key={index}>
+                    <div className={`relative ${pictures.length === 1 ? "w-full h-full" : "w-full h-0 pb-[100%]"}`} key={index}>
                         <img index={index} src={`/${picture}`} className="absolute top-0 left-0 w-full h-full object-cover"></img>
                     </div>
                 ))}
