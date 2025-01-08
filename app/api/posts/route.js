@@ -6,6 +6,7 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
+    const category = searchParams.get('category');
 
     if (id) {
       const { data: post, error } = await supabaseClient
@@ -17,32 +18,35 @@ export async function GET(req) {
           post_comment(*),
           tag(*),
           post_images(*),
-          post_likes(*)          
-          `)
+          post_likes(*)
+        `)
         .eq('id', id)
         .single();
 
       if (error) {
-        console.error('Supabase error:', error.message);
+        console.error('Error fetching post by ID:', id, error.message);
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
 
       return new Response(JSON.stringify(post), { status: 200 });
     } else {
-      const { data: posts, error } = await supabaseClient
-        .schema('blog')
-        .from('post')
-        .select(`
-          *,
-          category(*),
-          post_comment(*),
-          tag(*),
-          post_images(*),
-          post_likes(*)
-        `);
+      let query = supabaseClient.schema('blog').from('post').select(`
+        *,
+        category(*),
+        post_comment(*),
+        tag(*),
+        post_images(*),
+        post_likes(*)
+      `);
+
+      if (category) {
+        query = query.eq('category.id', category);
+      }
+
+      const { data: posts, error } = await query;
 
       if (error) {
-        console.error('Supabase error:', error.message);
+        console.error('Error fetching posts:', error.message);
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
 
@@ -54,6 +58,7 @@ export async function GET(req) {
   }
 }
 
+
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -61,7 +66,7 @@ export async function POST(req) {
     const { title, content, category, author_id, images, tags, likes, comments } = body;
 
     const { data: newPost, error: postError } = await supabaseClient
-      .schema('blog') 
+      .schema('blog')
       .from('post')
       .insert({ title, content, category, author_id })
       .select()
@@ -72,7 +77,7 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: postError.message }), { status: 500 });
     }
 
-    const postId = newPost.id; 
+    const postId = newPost.id;
 
     if (images && images.length > 0) {
       const imageData = images.map((image_url) => ({
@@ -107,7 +112,7 @@ export async function POST(req) {
         return new Response(JSON.stringify({ error: tagsError.message }), { status: 500 });
       }
     }
-  
+
     return new Response(JSON.stringify(newPost), { status: 201 });
   } catch (err) {
     console.error("Unexpected error:", err);
