@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import SocialBar from "./socialBar";
 
-export default function BlogPost() {
+export default function BlogPost({ category }) {
     const description = "Here a description for this post. It can be 3 lines at most in the preview. if you want to see more, you should press “view more” to read the entire post. In this blogpost, you can show off your favourite crochet works. Do not forget to tag the original patternmaker if there is one!"
     
     const initialView = "overflow-hidden leading-4 h-12 mt-[10px]"
@@ -60,6 +60,33 @@ export default function BlogPost() {
         }
       }, []);
 
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+          try {
+            const response = await fetch(`/api/posts?category=${2}`);
+            const data = await response.json();
+    
+            if (response.ok) {
+              setPosts(data);
+            } else {
+              setError(data.error || 'Failed to fetch posts');
+            }
+          } catch (err) {
+            setError('Unexpected error occurred');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchPosts();
+    }, [category]);
+    
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="w-[400px] sm:w-[500px]">
@@ -72,7 +99,7 @@ export default function BlogPost() {
                 <p>Username123</p>
             </div>
             <div className="ml-[60px]">
-                <h1 className="text-2xl">Post Title</h1>
+                <h1 className="text-2xl">{posts.title}</h1>
                 <p ref={contentRef} className={viewState}>{description}</p>
                 {!isShort && (
                     <button className="text-gray-500 mb-[10px]" onClick={clickevent}>{viewText}</button>
@@ -85,7 +112,7 @@ export default function BlogPost() {
                     </div>
                 ))}
             </div>
-            <SocialBar></SocialBar>
+            <SocialBar postId={0}></SocialBar>
         </div>
     )
 }
