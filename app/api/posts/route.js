@@ -9,6 +9,7 @@ export async function GET(req) {
     const category = searchParams.get('category');
 
     if (id) {
+      // Fetch the post data along with likes and comments
       const { data: post, error } = await supabaseClient
         .schema('blog')
         .from('post')
@@ -28,7 +29,16 @@ export async function GET(req) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
 
-      return new Response(JSON.stringify(post), { status: 200 });
+      // Count the likes and comments
+      const likesCount = post.post_likes.length;
+      const commentsCount = post.post_comment.length;
+      const postData = {
+        ...post,
+        likes: likesCount,
+        commentsAmount: commentsCount
+      };
+
+      return new Response(JSON.stringify(postData), { status: 200 });
     } else {
       let query = supabaseClient.schema('blog').from('post').select(`
         *,
@@ -67,7 +77,18 @@ export async function GET(req) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
 
-      return new Response(JSON.stringify(posts), { status: 200 });
+      const postsWithCounts = posts.map((post) => {
+        const likesCount = post.post_likes.length;
+        const commentsCount = post.post_comment.length;
+
+        return {
+          ...post,
+          likes: likesCount,
+          commentsAmount: commentsCount,
+        };
+      });
+
+      return new Response(JSON.stringify(postsWithCounts), { status: 200 });
     }
   } catch (err) {
     console.error('Unexpected error:', err);
