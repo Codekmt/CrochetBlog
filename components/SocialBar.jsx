@@ -26,6 +26,9 @@ export default function SocialBar({ postId }) {
         }
     }, []);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
     const handleLikeClick = async (postId, currentLikeState) => {
         try {
             const response = await fetch(`/api/posts/likes`, {
