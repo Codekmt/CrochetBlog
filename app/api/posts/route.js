@@ -40,13 +40,30 @@ export async function GET(req) {
       `);
 
       if (category) {
-        query = query.eq('category.id', category);
+        const { data: filteredPostCategories, error: filterError } = await supabaseClient
+          .schema('blog')
+          .from('post_category')
+          .select('post_id')
+          .eq('category_id', category);
+
+        if (filterError) {
+          console.error("Error filtering posts by category:", filterError.message);
+          return new Response(JSON.stringify({ error: filterError.message }), { status: 500 });
+        }
+
+        const postIds = filteredPostCategories.map((entry) => entry.post_id);
+
+        if (postIds.length > 0) {
+          query = query.in('id', postIds);
+        } else {
+          return new Response(JSON.stringify([]), { status: 200 });
+        }
       }
 
       const { data: posts, error } = await query;
 
       if (error) {
-        console.error('Error fetching posts:', error.message);
+        console.error("Error fetching posts:", error.message);
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
 
