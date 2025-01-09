@@ -18,6 +18,32 @@ export default function HelpPost() {
     const [isShort, setIsShort] = useState(false);
     
     const contentRef = useRef(null);
+
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+          try {
+            const response = await fetch("/api/posts?category=4");
+            const data = await response.json();
+    
+            if (response.ok) {
+              setPosts(data);
+            } else {
+              setError(data.error || 'Failed to fetch posts');
+            }
+          } catch (err) {
+            setError('Unexpected error occurred');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchPosts();
+    }, []);
+
     
     useEffect(() => {
         if (contentRef.current) {
@@ -64,31 +90,35 @@ export default function HelpPost() {
       }, []);
 
     return (
-        <div className="w-[400px] sm:w-[500px]">
-            <div className="flex items-center gap-[10px]">
-                <div className="bg-gray-200 w-[50px] h-[50px] rounded-full flex items-center">
-                    <span role="img" aria-label="Profile" className="text-2xl ml-[10px]">
-                    👤
-                    </span>
-                </div>
-                <p>Username123</p>
-                <div className="bg-gray-200 pl-[10px] pr-[10px] ml-auto">{tag}</div>
-            </div>
-            <div className="ml-[60px]">
-                <h1 className="text-2xl">Post Title</h1>
-                <p ref={contentRef} className={viewState}>{description}</p>
-                {!isShort && (
-                    <button className="text-gray-500 mb-[10px]" onClick={clickevent}>{viewText}</button>
-                    )}
-            </div>
-            <div className={pictureState}>
-                {pictures.map((picture, index) => (
-                    <div className={`relative ${pictures.length === 1 ? "w-full h-full" : "w-full h-0 pb-[100%]"}`} key={index}>
-                        <img index={index} src={`/${picture}`} className="absolute top-0 left-0 w-full h-full object-cover"></img>
+        <div className="flex flex-col gap-[20px]">
+            {posts.map((post, index) => (
+                <div className="w-[400px] sm:w-[500px]">
+                    <div className="flex items-center gap-[10px]">
+                        <div className="bg-gray-200 w-[50px] h-[50px] rounded-full flex items-center">
+                            <span role="img" aria-label="Profile" className="text-2xl ml-[10px]">
+                            👤
+                            </span>
+                        </div>
+                        <p>Username123</p>
+                        <div className="bg-gray-200 pl-[10px] pr-[10px] ml-auto">{tag}</div>
                     </div>
-                ))}
-            </div>
-            <SocialBar></SocialBar>
+                    <div className="ml-[60px]">
+                        <h1 className="text-2xl">{post.title}</h1>
+                        <p ref={contentRef} className={viewState}>{post.content}</p>
+                        {!isShort && (
+                            <button className="text-gray-500 mb-[10px]" onClick={clickevent}>{viewText}</button>
+                            )}
+                    </div>
+                    <div className={pictureState}>
+                        {pictures.map((picture, index) => (
+                            <div className={`relative ${pictures.length === 1 ? "w-full h-full" : "w-full h-0 pb-[100%]"}`} key={index}>
+                                <img index={index} src={`/${picture}`} className="absolute top-0 left-0 w-full h-full object-cover"></img>
+                            </div>
+                        ))}
+                    </div>
+                    <SocialBar></SocialBar>
+                    </div>
+            ))}
         </div>
     )
 }

@@ -5,13 +5,14 @@ import CommentSection from "./CommentSection";
 export default function SocialBar({ postId }) {
     //fetch likes
     const [Likes, setLikes] = useState(0);
+    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [likeState, setLikeState] = useState(false);
     
     useEffect(() => {
         async function fetchLikes() {
             try {
-                const response = await fetch(`/api/posts/likes`);
+                const response = await fetch(`/api/posts/${postId}/likes`);
                 if(!response.ok) throw new Error('failed to fetch likes');
                 const data = await response.json();
                 setLikes(data.likes);
@@ -24,34 +25,49 @@ export default function SocialBar({ postId }) {
         if (postId){
             fetchLikes();
         }
-    }, []);
+    }, [postId]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-
-    const handleLikeClick = async (postId, currentLikeState) => {
+    const handleLikeClick = async () => {
         try {
-            const response = await fetch(`/api/posts/likes`, {
+            const newLikeState = !likeState;
+            const newLikes = newLikeState ? Likes + 1 : Likes - 1;
+            setLikes(newLikes);
+            setLikeState(newLikeState);
+
+            const response = await fetch(`/api/posts/${postId}/likes`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ postId, like: !currentLikeState  }),
+                body: JSON.stringify({ likes: newLikes  }),
             });
             if (!response.ok) throw new Error("Failed to update likes");
             const data = await response.json();
 
             // Update the specific post's likes in the state
-            setPosts((prevPosts) =>
-                prevPosts.map((post) =>
-                    post.id === postId ? { ...post, likes: data.likes } : post
-                )
-            );
+
+            setLikeState(!likeState);
         } catch (error) {
             console.error(error);
         }
     };
 
+    useEffect(() => {
+        async function fetchComments() {
+            try {
+                const response = await fetch(`/api/posts/${postId}/comments`);
+                if(!response.ok) throw new Error('failed to fetch comments');
+                const data = await response.json();
+                setComments(data.comments);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        if (postId){
+            fetchComments();
+        }
+    }, [postId]);
 
-    //TODO: comments amount should be the amount of comments saved in the database
     const commentsAmount = 0;
 
     const [commentSectionState, setcommentSectionState] = useState("hidden");
