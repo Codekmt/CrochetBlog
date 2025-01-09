@@ -67,7 +67,7 @@ export default function BlogPost({ category }) {
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const response = await fetch(`/api/posts?category=${2}`);
+            const response = await fetch("/api/posts?category=2");
             const data = await response.json();
     
             if (response.ok) {
