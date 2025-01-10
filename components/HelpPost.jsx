@@ -92,7 +92,7 @@ export default function HelpPost() {
     return (
         <div className="flex flex-col gap-[20px]">
             {posts.map((post, index) => (
-                <div className="w-[400px] sm:w-[500px]">
+                <div className="w-[400px] sm:w-[500px]" key={index}>
                     <div className="flex items-center gap-[10px]">
                         <div className="bg-gray-200 w-[50px] h-[50px] rounded-full flex items-center">
                             <span role="img" aria-label="Profile" className="text-2xl ml-[10px]">
