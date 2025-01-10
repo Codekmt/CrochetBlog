@@ -9,13 +9,13 @@ const PostTypeSelector = () => {
         </h1>
         <div className="flex justify-center space-x-4">
         <Link href="/CreateBlogPost" passHref>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded">Blog</button>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded">Blog</button>
         </Link>
         <Link href="/CreateHelpPost" passHref>
-          <button className="bg-green-500 text-white px-4 py-2 rounded">Help</button>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded">Help</button>
         </Link>
         <Link href="/CreatePatternPost" passHref>
-          <button className="bg-purple-500 text-white px-4 py-2 rounded">Pattern</button>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded">Pattern</button>
         </Link>
         </div>
       </div>
