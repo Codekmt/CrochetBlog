@@ -16,10 +16,11 @@ export async function GET(req) {
         .select(`
           *,
           category(*),
-          post_comment(*),
+          post_comment(*, content, user(first_name, last_name)),
           tag(*),
           post_images(*),
-          post_likes(*)
+          post_likes(*),
+          user(first_name, last_name)
         `)
         .eq('id', id)
         .single();
@@ -43,10 +44,11 @@ export async function GET(req) {
       let query = supabaseClient.schema('blog').from('post').select(`
         *,
         category(*),
-        post_comment(*),
+        post_comment(*, content, user(first_name, last_name)),
         tag(*),
         post_images(*),
-        post_likes(*)
+        post_likes(*),
+        user(first_name, last_name)
       `);
 
       if (category) {

@@ -6,6 +6,7 @@ import CommentSection from "./CommentSection";
 export default function SocialBar({ postId, userId }) {
   const [Likes, setLikes] = useState(0);
   const [commentsAmount, setCommentsAmount] = useState(0); 
+  const [comments, setComments] = useState([]); 
   const [loading, setLoading] = useState(true); 
   const [likeState, setLikeState] = useState(false); 
   const [error, setError] = useState(null); 
@@ -21,6 +22,7 @@ export default function SocialBar({ postId, userId }) {
         setLikes(data.likes); 
         setCommentsAmount(data.commentsAmount);
         setLikeState(data.userLiked);
+        setComments(data.post_comment || []); 
       } catch (error) {
         console.error(error);
         setError(error.message);
@@ -156,7 +158,7 @@ export default function SocialBar({ postId }) {
       <div className="flex w-[400px] ml-[60px] gap-[10px]">
         <div>
           <button onClick={handleLikeClick} type="button">
-            {Likes} {likeState ? "Unlike" : "Like"} {/* Button toggles between Like/Unlike */}
+            {Likes} {likeState ? "Unlike" : "Like"}
           </button>
         </div>
         <div>
@@ -166,7 +168,7 @@ export default function SocialBar({ postId }) {
         </div>
       </div>
       <div className={`${commentSectionState} ml-[50px] m-[20px]`}>
-        <CommentSection />
+        <CommentSection comments={comments} /> 
       </div>
     </>
   );

@@ -71,7 +71,7 @@ export default function BlogPost({ category }) {
                                 👤
                             </span>
                         </div>
-                        <p>{`User ${post.author_id}`}</p>
+                        <p>{`${post.user.first_name}`} {`${post.user.last_name}`}</p>
                     </div>
                     
                     {/* Post Content */}
