@@ -71,6 +71,10 @@ export default function HelpPost() {
                             </span>
                         </div>
                         <p>{`${post.user.first_name}`} {`${post.user.last_name}`}</p>
+                        
+                        <div className="bg-gray-200 pl-[10px] pr-[10px] ml-auto">
+                            {post.tag.length > 0 ? post.tag[0].title : 'No tag'}
+                        </div>
                     </div>
 
                     <div className="ml-[60px]">
@@ -92,8 +96,9 @@ export default function HelpPost() {
                             </div>
                         ))}
                     </div>
+
                     <SocialBar postId={post.id}></SocialBar>
-                    </div>
+                </div>
             ))}
         </div>
     );

@@ -74,6 +74,7 @@ export default function BlogPost({ category }) {
                         <p>{`${post.user.first_name}`} {`${post.user.last_name}`}</p>
                     </div>
                     
+                    
                     {/* Post Content */}
                     <div className="ml-[60px]">
                         <h1 className="text-2xl">{post.title || "Untitled"}</h1>
