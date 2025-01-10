@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import CommentSection from "./CommentSection";
 
-<<<<<<< HEAD
 export default function SocialBar({ postId, userId }) {
   const [Likes, setLikes] = useState(0);
   const [commentsAmount, setCommentsAmount] = useState(0); 
@@ -29,84 +28,6 @@ export default function SocialBar({ postId, userId }) {
       } finally {
         setLoading(false);
       }
-=======
-export default function SocialBar({ postId }) {
-    //fetch likes
-    const [Likes, setLikes] = useState(0);
-    const [comments, setComments] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [likeState, setLikeState] = useState(false);
-    
-    useEffect(() => {
-        async function fetchLikes() {
-            try {
-                const response = await fetch(`/api/posts/${postId}/likes`);
-                if(!response.ok) throw new Error('failed to fetch likes');
-                const data = await response.json();
-                setLikes(data.likes);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        if (postId){
-            fetchLikes();
-        }
-    }, [postId]);
-
-    const handleLikeClick = async () => {
-        try {
-            const newLikeState = !likeState;
-            const newLikes = newLikeState ? Likes + 1 : Likes - 1;
-            setLikes(newLikes);
-            setLikeState(newLikeState);
-
-            const response = await fetch(`/api/posts/${postId}/likes`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ likes: newLikes  }),
-            });
-            if (!response.ok) throw new Error("Failed to update likes");
-            const data = await response.json();
-
-            // Update the specific post's likes in the state
-
-            setLikeState(!likeState);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        async function fetchComments() {
-            try {
-                const response = await fetch(`/api/posts/${postId}/comments`);
-                if(!response.ok) throw new Error('failed to fetch comments');
-                const data = await response.json();
-                setComments(data.comments);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        if (postId){
-            fetchComments();
-        }
-    }, [postId]);
-
-    const commentsAmount = 0;
-
-    const [commentSectionState, setcommentSectionState] = useState("hidden");
-
-    const commentClick = () => {
-        if(commentSectionState == "hidden") {
-            setcommentSectionState("");
-        } else {
-            setcommentSectionState("hidden");
-        }
->>>>>>> d224b1b6377989dbe0352eecff5e328c419cca1a
     }
 
     if (postId) {
