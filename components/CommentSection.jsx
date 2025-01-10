@@ -31,7 +31,7 @@ export default function CommentSection({ comments }) {
             )}
 
             <div className="mt-[20px] mb-[20px]">
-                <form onSubmit={handleSubmit} className="flex gap-[10px]">
+                <form onSubmit={handleSubmit} className="flex gap-[10px] ml-[60px]">
                     <input
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}

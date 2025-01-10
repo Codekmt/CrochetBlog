@@ -76,10 +76,10 @@ export default function SocialBar({ postId, userId }) {
 
   return (
     <>
-      <div className="flex w-[400px] ml-[60px] gap-[10px]">
+      <div className="flex w-[400px] ml-[60px] mt-[5px] gap-[10px]">
         <div>
           <button onClick={handleLikeClick} type="button">
-            {Likes} {likeState ? "Unlike" : "Like"}
+            {Likes} {likeState ? "Unlike" : "Likes"}
           </button>
         </div>
         <div>
