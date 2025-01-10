@@ -4,7 +4,7 @@ import SocialBar from "./socialBar";
 import Link from "next/link";
 
 export default function PatternPost() {
-    const picture = "01.jpg";
+    const picture = "08.jpg";
 
     const initialView = "overflow-hidden leading-4 h-12 mt-[10px]";
     const viewMore = "leading-4 h-auto mt-[10px]";
