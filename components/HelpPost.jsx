@@ -62,8 +62,13 @@ export default function HelpPost() {
 
     return (
         <div className="flex flex-col gap-[20px]">
+<<<<<<< HEAD
             {posts.map((post) => (
                 <div className="w-[400px] sm:w-[500px]" key={post.id}>
+=======
+            {posts.map((post, index) => (
+                <div className="w-[400px] sm:w-[500px]" key={index}>
+>>>>>>> 56ab5abcd2bc0801c869e6c376cda0f3741d8887
                     <div className="flex items-center gap-[10px]">
                         <div className="bg-gray-200 w-[50px] h-[50px] rounded-full flex items-center">
                             <span role="img" aria-label="Profile" className="text-2xl ml-[10px]">
@@ -92,9 +97,8 @@ export default function HelpPost() {
                             </div>
                         ))}
                     </div>
-
-                    <SocialBar postId={post.id} />
-                </div>
+                    <SocialBar postId={post.id}></SocialBar>
+                    </div>
             ))}
         </div>
     );
