@@ -57,7 +57,7 @@ export default function PatternPost() {
                             <img src={picture} className="w-full h-full object-cover"></img>
                         </div>
                     </div>
-                    <SocialBar></SocialBar>
+                    <SocialBar postId={post.id}></SocialBar>
                 </div>
             ))}
         </div>

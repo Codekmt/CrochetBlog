@@ -116,7 +116,7 @@ export default function HelpPost() {
                             </div>
                         ))}
                     </div>
-                    <SocialBar></SocialBar>
+                    <SocialBar postId={post.id}></SocialBar>
                     </div>
             ))}
         </div>
